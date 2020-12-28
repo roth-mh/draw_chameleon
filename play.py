@@ -6,7 +6,7 @@ import sys
 
 MIN_NUM_PLAYERS = 2
 MIN_NUM_CHAMELEONS = 0
-NUM_SECONDS_BETWEEN_PLAYERS = 8
+NUM_SECONDS_BETWEEN_PLAYERS = 3
 
 def play_game(words, default_words, user_input_number_of_chameleons=False,
               test=False):
@@ -23,8 +23,6 @@ def play_game(words, default_words, user_input_number_of_chameleons=False,
     num_players = input("how many players? enter here: ")
     int_num_players = int(num_players)
 
-
-    max_num_cham = int_num_players - MIN_NUM_PLAYERS
     player_list = [player for player in range(int_num_players)]
 
     # randomly choose a number of chameleons bounded below by the
@@ -36,6 +34,7 @@ def play_game(words, default_words, user_input_number_of_chameleons=False,
         while num_cham > int_num_players:
             num_cham = int(input(f"try again; number must be between 0 and {int_num_players}: "))
     else:
+        max_num_cham = int(input(f"what is the maximum number of chameleons? (number between 0 and {int_num_players-2}): "))
         num_cham = random.randint(MIN_NUM_CHAMELEONS, max_num_cham)
 
     # given a number of chameleons, choose a random combination of players to
@@ -53,23 +52,24 @@ def play_game(words, default_words, user_input_number_of_chameleons=False,
         print(f"player {i+1}:")
         if i in chameleon_nums:
             print("lol YOU are the chameleon")
-            time.sleep(5)
         else:
             print(f"the word is: {rand_word}")
-            time.sleep(5)
-
-        if not test:
-            os.system('clear')
 
         if i+1 == int_num_players:
             print("play on!")
             time.sleep(NUM_SECONDS_BETWEEN_PLAYERS*3)
         else:
-            print("switch players; 8 seconds:")
+            isReady = None
+            while isReady != "y":
+                isReady = input(f"when you are ready type 'y' and hit enter... ")
+
+        if not test:
+            os.system('clear')
+            print(f"changing in {NUM_SECONDS_BETWEEN_PLAYERS} seconds ... ")
             time.sleep(NUM_SECONDS_BETWEEN_PLAYERS)
 
     if default_words == True:
-        delete_word_str = input(f"was ~~{rand_word}~~ a bad word? should it be removed permantely from the default word list? (y/n) ")
+        delete_word_str = input(f"was ~~{rand_word}~~ a bad word? should it be removed permanately from the default word list? (y/n) ")
         if "y" in delete_word_str:
             delete_word(rand_word)
 

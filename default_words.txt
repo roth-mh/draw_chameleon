@@ -18,6 +18,7 @@ club
 crime
 throne
 vacation
+paradox
 spoon
 country
 crime
@@ -99,7 +100,6 @@ chapter
 candidate
 sector
 town
-language
 childhood
 guidance
 product
